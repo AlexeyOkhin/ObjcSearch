@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0CB53FE92A4B0ABB0049B4BF /* LeftTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB53FE82A4B0ABB0049B4BF /* LeftTableViewCell.m */; };
 		0CB53FED2A4BF9500049B4BF /* GitModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB53FEC2A4BF9500049B4BF /* GitModel.m */; };
+		0CB53FF02A4C60180049B4BF /* RightTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CB53FEF2A4C60180049B4BF /* RightTableViewCell.m */; };
 		0CC799BF2A45F20A001C2143 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC799BE2A45F20A001C2143 /* AppDelegate.m */; };
 		0CC799C22A45F20A001C2143 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC799C12A45F20A001C2143 /* SceneDelegate.m */; };
 		0CC799C52A45F20A001C2143 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CC799C42A45F20A001C2143 /* ViewController.m */; };
@@ -24,6 +25,9 @@
 		0CB53FE82A4B0ABB0049B4BF /* LeftTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LeftTableViewCell.m; sourceTree = "<group>"; };
 		0CB53FEB2A4BF9500049B4BF /* GitModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GitModel.h; sourceTree = "<group>"; };
 		0CB53FEC2A4BF9500049B4BF /* GitModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GitModel.m; sourceTree = "<group>"; };
+		0CB53FEE2A4C5FEC0049B4BF /* RightTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RightTableViewCell.h; sourceTree = "<group>"; };
+		0CB53FEF2A4C60180049B4BF /* RightTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RightTableViewCell.m; sourceTree = "<group>"; };
+		0CB53FF22A4C73140049B4BF /* ImageTappedDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageTappedDelegate.h; sourceTree = "<group>"; };
 		0CC799BA2A45F20A001C2143 /* gitTunsSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gitTunsSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0CC799BD2A45F20A001C2143 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0CC799BE2A45F20A001C2143 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -56,6 +60,8 @@
 			children = (
 				0CB53FE72A4B0ABB0049B4BF /* LeftTableViewCell.h */,
 				0CB53FE82A4B0ABB0049B4BF /* LeftTableViewCell.m */,
+				0CB53FEE2A4C5FEC0049B4BF /* RightTableViewCell.h */,
+				0CB53FEF2A4C60180049B4BF /* RightTableViewCell.m */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -107,6 +113,7 @@
 				0CB53FE62A4B0A860049B4BF /* cells */,
 				0CC799C32A45F20A001C2143 /* ViewController.h */,
 				0CC799C42A45F20A001C2143 /* ViewController.m */,
+				0CB53FF22A4C73140049B4BF /* ImageTappedDelegate.h */,
 			);
 			path = mainScreen;
 			sourceTree = "<group>";
@@ -201,6 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CB53FF02A4C60180049B4BF /* RightTableViewCell.m in Sources */,
 				0CB53FED2A4BF9500049B4BF /* GitModel.m in Sources */,
 				0CC799C52A45F20A001C2143 /* ViewController.m in Sources */,
 				0CC799BF2A45F20A001C2143 /* AppDelegate.m in Sources */,

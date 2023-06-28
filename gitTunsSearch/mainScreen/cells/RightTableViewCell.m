@@ -1,26 +1,25 @@
 //
-//  LeftTableViewCell.m
+//  RightTableViewCell.m
 //  gitTunsSearch
 //
-//  Created by Djinsolobzik on 27.06.2023.
+//  Created by Djinsolobzik on 28.06.2023.
 //
 
-#import "LeftTableViewCell.h"
+#import "RightTableViewCell.h"
 #import "ImageTappedDelegate.h"
 
-@implementation LeftTableViewCell
+@implementation RightTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-
-        self.imageAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
+        self.imageAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(300, 0, 80, 80)];
         [self.contentView addSubview: self.imageAvatar];
 
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 10, CGRectGetWidth(self.contentView.frame) - 30, 30)];
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, CGRectGetWidth(self.contentView.frame) - 90, 30)];
         [self.contentView addSubview: self.titleLabel];
 
-        self.linkLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 50, CGRectGetWidth(self.contentView.frame) - 30, 40)];
+        self.linkLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 50, CGRectGetWidth(self.contentView.frame) - 90, 40)];
         self.linkLabel.numberOfLines = 2;
         [self.contentView addSubview: self.linkLabel];
 

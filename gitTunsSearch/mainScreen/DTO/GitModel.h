@@ -11,8 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GitModel : NSObject 
 @property (nonatomic) NSString *login;
-@property (nonatomic) NSString *avatar_url;
-@property (nonatomic) NSString *url;
+@property (nonatomic, strong) NSString *avatarUrl;
+@property (nonatomic, strong) NSString *url;
 @end
 
 NS_ASSUME_NONNULL_END

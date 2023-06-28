@@ -6,8 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ImageTappedDelegate.h"
 
-@interface ViewController : UIViewController<UITableViewDataSource, UISearchBarDelegate>
+@interface ViewController : UIViewController<UITableViewDataSource, UISearchBarDelegate, ImageTappedDelegate>
 
 
 @end

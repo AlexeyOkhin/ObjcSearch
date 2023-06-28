@@ -1,8 +1,8 @@
 //
-//  LeftTableViewCell.h
+//  RightTableViewCell.h
 //  gitTunsSearch
 //
-//  Created by Djinsolobzik on 27.06.2023.
+//  Created by Djinsolobzik on 28.06.2023.
 //
 
 #import <UIKit/UIKit.h>
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface LeftTableViewCell : UITableViewCell
+@interface RightTableViewCell : UITableViewCell
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *linkLabel;
 @property (nonatomic, strong) UIImageView *imageAvatar;
