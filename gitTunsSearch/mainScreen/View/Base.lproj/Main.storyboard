@@ -15,8 +15,24 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MZe-0p-4y4">
+                                <rect key="frame" x="0.0" y="103" width="393" height="749"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="B03-j4-7O1"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="lqp-EL-ck7"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="MZe-0p-4y4" secondAttribute="bottom" id="Eii-Zl-tVt"/>
+                            <constraint firstItem="MZe-0p-4y4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Otp-O4-RQx"/>
+                            <constraint firstItem="MZe-0p-4y4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XOl-jf-cJ0"/>
+                            <constraint firstItem="MZe-0p-4y4" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="dUd-7e-eza"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="wWl-zI-Eal">
                         <nil key="title"/>
@@ -27,10 +43,14 @@
                                 <segment title="GitHub"/>
                                 <segment title="iTunes"/>
                             </segments>
+                            <connections>
+                                <action selector="segmentSearchAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="SoK-Yl-O9T"/>
+                            </connections>
                         </segmentedControl>
                     </navigationItem>
                     <connections>
-                        <outlet property="searchSegmenedControl" destination="dqb-oE-VvY" id="zhb-Jd-xvc"/>
+                        <outlet property="searchSegmentedControl" destination="dqb-oE-VvY" id="zhb-Jd-xvc"/>
+                        <outlet property="tableView" destination="MZe-0p-4y4" id="dUw-fz-TAC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
