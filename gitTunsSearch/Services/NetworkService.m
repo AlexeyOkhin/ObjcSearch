@@ -19,7 +19,9 @@
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *task = [session dataTaskWithURL: url completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
-            completion(nil, error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(nil, error);
+            });
             return;
         }
 
@@ -43,7 +45,9 @@
             }
 
             if (jsonError) {
-                completion(nil, jsonError);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion(nil, jsonError);
+                });
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completion(models, nil);
@@ -52,7 +56,9 @@
             }
         } else {
             NSError *apiError = [NSError errorWithDomain:@"GitHubAPIErrorDomain" code:httpResponse.statusCode userInfo:nil];
-            completion(nil, apiError);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(nil, apiError);
+            });
         }
     }];
 
@@ -66,7 +72,9 @@
     NSURLSession *session = [NSURLSession sharedSession];
     NSURLSessionDataTask *task = [session dataTaskWithURL: url completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
         if (error) {
-            completion(nil, error);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(nil, error);
+            });
             return;
         }
 
@@ -90,7 +98,9 @@
             }
 
             if (jsonError) {
-                completion(nil, jsonError);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion(nil, jsonError);
+                });
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     completion(models, nil);
@@ -99,7 +109,9 @@
             }
         } else {
             NSError *apiError = [NSError errorWithDomain:@"iTunesAPIErrorDomain" code:httpResponse.statusCode userInfo:nil];
-            completion(nil, apiError);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(nil, apiError);
+            });
         }
     }];
 

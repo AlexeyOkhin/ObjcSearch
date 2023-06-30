@@ -20,7 +20,7 @@
 @property (nonatomic, strong) NetworkService *networkService;
 @property (nonatomic, strong) NSString *searchString;
 @property (nonatomic, strong) UIImageView *expandedImageView;
-
+@property (nonatomic, strong) UISearchController *searchController;
 @end
 
 @implementation ViewController
@@ -31,8 +31,8 @@
     [super awakeFromNib];
 
     self.searchString = @"";
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.networkService = [[NetworkService alloc] init];
-    self.tableView = [[UITableView alloc] init];
 }
 
 // MARK: - Life Cycle
@@ -44,13 +44,14 @@
     [self settingTableView];
     [self settingSearchBar];
     [self settingNavigationBar];
+    [self hiddenKeyboard];
 
 }
 
 // MARK: - Private Methods
 
 -(void)setLayout {
-
+    self.tableView = [[UITableView alloc] init];
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     [self.view addSubview: self.tableView];
     [NSLayoutConstraint activateConstraints:@[
@@ -71,23 +72,68 @@
 }
 
 -(void)settingSearchBar {
-    UISearchController *searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    searchController.searchBar.delegate = self;
-    searchController.searchBar.showsCancelButton = NO;
-    self.navigationItem.searchController = searchController;
+    self.searchController.searchBar.delegate = self;
+    self.searchController.searchBar.showsCancelButton = NO;
+    self.navigationItem.searchController = self.searchController;
     self.navigationItem.hidesSearchBarWhenScrolling = NO;
     self.navigationItem.searchController.hidesNavigationBarDuringPresentation = NO;
 
 }
 
--(void)settingNavigationBar {
+- (void)settingNavigationBar {
     if (@available(iOS 15, *)) {
         UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
         [appearance configureWithOpaqueBackground];
         appearance.backgroundColor = UIColor.whiteColor;
         self.navigationController.navigationBar.standardAppearance = appearance;
-        self.navigationController.navigationBar.scrollEdgeAppearance = self.navigationController.navigationBar.standardAppearance;
     }
+}
+
+- (void)hiddenKeyboard {
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
+    [self.tableView addGestureRecognizer:tapGesture];
+}
+
+- (void)handleTap:(UITapGestureRecognizer *)gesture {
+    [self.searchController.searchBar resignFirstResponder];
+}
+
+- (void)showSearchAlert:(NSString *) message {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Внимание!!!" message:message preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"ОК" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:okAction];
+
+    [self presentViewController:alertController animated:YES completion:nil];
+
+}
+
+- (void)fetchGitHub {
+    [self.networkService fetchRepositoriesForGitHub: _searchString completion: ^(NSArray *repositories, NSError *error) {
+        if (error != nil) {
+            [self showSearchAlert:error.localizedDescription];
+            return;
+        }
+        self.dataModels = repositories;
+        [self.tableView reloadData];
+        if (self.dataModels.count == 0) {
+            [self showSearchAlert:@"Поиск не дал результата"];
+        }
+    }];
+}
+
+- (void)fetchTunes {
+    [self.networkService fetchRepositoriesForTunes: _searchString completion: ^(NSArray *models, NSError *error) {
+        if (error != nil) {
+            [self showSearchAlert:error.localizedDescription];
+            return;
+        }
+        self.dataModels = models;
+        [self.tableView reloadData];
+        if (self.dataModels.count == 0) {
+            [self showSearchAlert:@"Поиск не дал результата"];
+        }
+    }];
 }
 
 // MARK: - Switch search
@@ -95,20 +141,12 @@
 - (IBAction)segmentSearchAction:(UISegmentedControl *)sender {
     NSInteger selectedSegmentIndex = sender.selectedSegmentIndex;
     switch (selectedSegmentIndex) {
-        case 0: {
-            [self.networkService fetchRepositoriesForGitHub: _searchString completion: ^(NSArray *repositories, NSError *error) {
-                self.dataModels = repositories;
-                [self.tableView reloadData];
-            }];
+        case 0:
+            [self fetchGitHub];
             break;
-        }
-        case 1: {
-            [self.networkService fetchRepositoriesForTunes: _searchString completion: ^(NSArray *models, NSError *error) {
-                self.dataModels = models;
-                [self.tableView reloadData];
-            }];
+        case 1:
+            [self fetchTunes];
             break;
-        }
     }
 }
 
@@ -116,19 +154,23 @@
 
 - (void)searchBar: (UISearchBar *)searchBar textDidChange:(NSString *)searchText {
 
-    NSLog(@"%@", searchText);
     _searchString = searchText;
-}
-
-- (void)searchBarCancelButtonClicked: (UISearchBar *)searchBar {
-    _searchString = @"";
-    self.dataModels = nil;
-    [self.tableView reloadData];
+    if ([_searchString  isEqual: @""]) {
+        self.dataModels = nil;
+        [self.tableView reloadData];
+    }
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    switch (_searchSegmentedControl.selectedSegmentIndex) {
+        case 0:
+            [self fetchGitHub];
+            break;
 
-
+        case 1:
+            [self fetchTunes];
+            break;
+    }
 }
 
 - (void)loadImageFromURL:(NSURL *)url completion:(void (^)(UIImage *image))completion {
@@ -226,6 +268,10 @@
         }
     }
 
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO; 
 }
 
 @end
