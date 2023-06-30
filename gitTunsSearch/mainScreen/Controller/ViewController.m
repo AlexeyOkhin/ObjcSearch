@@ -193,11 +193,23 @@
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(expandedImageTapped:)];
     [self.expandedImageView addGestureRecognizer:tapGesture];
 
+    self.expandedImageView.alpha = 0;
     [self.view addSubview:self.expandedImageView];
+
+    [UIView animateWithDuration:0.4 animations:^{
+        self.expandedImageView.alpha = 1;
+    }];
 }
 
 - (void)expandedImageTapped:(UITapGestureRecognizer *)gesture {
-    [self.expandedImageView removeFromSuperview];
+    [UIView animateWithDuration:0.8 animations:^{
+        self.expandedImageView.alpha = 0;
+    } completion:^(BOOL finished) {
+        if(finished) {
+            [self.expandedImageView removeFromSuperview];
+        }
+    }];
+
 }
 
 //MARK: - UITableViewDataSource
@@ -220,7 +232,6 @@
                 cell.imageAvatar.image = image;
 
             }];
-
             cell.delegate = self;
             return cell;
 
