@@ -10,6 +10,4 @@
 
 @interface ViewController : UIViewController<UITableViewDataSource, UISearchBarDelegate, ImageTappedDelegate>
 
-
 @end
-

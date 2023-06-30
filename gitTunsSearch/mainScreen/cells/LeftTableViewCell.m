@@ -14,13 +14,16 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
 
-        self.imageAvatar = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
+        self.imageAvatar = [[UIImageView alloc] init];
+        self.imageAvatar.translatesAutoresizingMaskIntoConstraints = NO;
         [self.contentView addSubview: self.imageAvatar];
 
-        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 10, CGRectGetWidth(self.contentView.frame) - 30, 30)];
+        self.titleLabel = [[UILabel alloc] init];
+        self.titleLabel.translatesAutoresizingMaskIntoConstraints = NO;
         [self.contentView addSubview: self.titleLabel];
 
-        self.linkLabel = [[UILabel alloc] initWithFrame:CGRectMake(90, 50, CGRectGetWidth(self.contentView.frame) - 30, 40)];
+        self.linkLabel = [[UILabel alloc] init];
+        self.linkLabel.translatesAutoresizingMaskIntoConstraints = NO;
         self.linkLabel.numberOfLines = 2;
         [self.contentView addSubview: self.linkLabel];
 
@@ -28,7 +31,33 @@
         [self.imageAvatar addGestureRecognizer:tapGesture];
         self.imageAvatar.userInteractionEnabled = YES;
     }
+    [self setLayout];
     return self;
+}
+
+- (void)prepareForReuse {
+    [super prepareForReuse];
+    self.imageAvatar.image = nil;
+    self.linkLabel.text = nil;
+    self.titleLabel.text = nil;
+}
+
+- (void)setLayout {
+    [NSLayoutConstraint activateConstraints:@[
+           [self.imageAvatar.leadingAnchor constraintEqualToAnchor:self.contentView.leadingAnchor constant:16],
+           [self.imageAvatar.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
+           [self.imageAvatar.heightAnchor constraintEqualToConstant:80],
+           [self.imageAvatar.widthAnchor constraintEqualToConstant:80],
+
+           [self.titleLabel.leadingAnchor constraintEqualToAnchor:self.imageAvatar.trailingAnchor constant:10],
+           [self.titleLabel.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:10],
+           [self.titleLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-10],
+
+           [self.linkLabel.leadingAnchor constraintEqualToAnchor:self.imageAvatar.trailingAnchor constant:10],
+           [self.linkLabel.topAnchor constraintEqualToAnchor:self.titleLabel.bottomAnchor constant:16],
+           [self.linkLabel.trailingAnchor constraintEqualToAnchor:self.contentView.trailingAnchor constant:-10],
+
+       ]];
 }
 
 - (void)imageTapped:(UITapGestureRecognizer *)gesture {

@@ -32,6 +32,7 @@
 
     self.searchString = @"";
     self.networkService = [[NetworkService alloc] init];
+    self.tableView = [[UITableView alloc] init];
 }
 
 // MARK: - Life Cycle
@@ -39,17 +40,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [self setLayout];
     [self settingTableView];
     [self settingSearchBar];
+    [self settingNavigationBar];
+
 }
 
 // MARK: - Private Methods
 
+-(void)setLayout {
+
+    self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self.view addSubview: self.tableView];
+    [NSLayoutConstraint activateConstraints:@[
+           [self.tableView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor],
+           [self.tableView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor],
+           [self.tableView.trailingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.trailingAnchor],
+           [self.tableView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor]
+
+       ]];
+}
+
 -(void)settingTableView {
-    self.tableView = [[UITableView alloc] initWithFrame: self.view.bounds style: UITableViewStylePlain];
+
     self.tableView.dataSource = self;
     self.tableView.rowHeight = 100;
-    [self.view addSubview: self.tableView];
     [self.tableView registerClass: [LeftTableViewCell class] forCellReuseIdentifier: @"LeftImageCellIdentifier"];
     [self.tableView registerClass: [RightTableViewCell class] forCellReuseIdentifier: @"RightImageCellIdentifier"];
 }
@@ -61,6 +77,17 @@
     self.navigationItem.searchController = searchController;
     self.navigationItem.hidesSearchBarWhenScrolling = NO;
     self.navigationItem.searchController.hidesNavigationBarDuringPresentation = NO;
+
+}
+
+-(void)settingNavigationBar {
+    if (@available(iOS 15, *)) {
+        UINavigationBarAppearance *appearance = [[UINavigationBarAppearance alloc] init];
+        [appearance configureWithOpaqueBackground];
+        appearance.backgroundColor = UIColor.whiteColor;
+        self.navigationController.navigationBar.standardAppearance = appearance;
+        self.navigationController.navigationBar.scrollEdgeAppearance = self.navigationController.navigationBar.standardAppearance;
+    }
 }
 
 // MARK: - Switch search
@@ -149,7 +176,6 @@
             NSURL *imageURL = [NSURL URLWithString: model.avatarUrl];
             [self loadImageFromURL:imageURL completion:^(UIImage *image) {
                 cell.imageAvatar.image = image;
-                [cell setNeedsLayout];
 
             }];
 
@@ -163,7 +189,6 @@
             NSURL *imageURL = [NSURL URLWithString: model.avatarUrl];
             [self loadImageFromURL:imageURL completion:^(UIImage *image) {
                 cell.imageAvatar.image = image;
-                [cell setNeedsLayout];
 
             }];
 
@@ -180,7 +205,6 @@
             NSURL *imageURL = [NSURL URLWithString: model.artworkUrl100];
             [self loadImageFromURL:imageURL completion:^(UIImage *image) {
                 cell.imageAvatar.image = image;
-                [cell setNeedsLayout];
 
             }];
 
@@ -194,7 +218,6 @@
             NSURL *imageURL = [NSURL URLWithString: model.artworkUrl100];
             [self loadImageFromURL:imageURL completion:^(UIImage *image) {
                 cell.imageAvatar.image = image;
-                [cell setNeedsLayout];
 
             }];
 
